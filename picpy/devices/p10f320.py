@@ -5,7 +5,7 @@ from .midrange import *
 MAX_RAM = 0x007F
 BAD_RAM = 0x002F
 
-INTERRUPT_VECTOR = 0x04
+HAS_TRIS = True
 
 # ============== Working Registers ==============
 

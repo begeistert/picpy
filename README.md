@@ -10,4 +10,3 @@
   <p align="center">
     PIC Python Compiler
   </p>
-</p>

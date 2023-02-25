@@ -9,7 +9,8 @@ def interrupt():
 
 @start
 def main():
-    led = Pin(PORTA, RA0, Pin.OUT)
+    TRISA[RA0] = 0  # Set RA0 to output
+    led = Pin(PORTA, RA0, Pin.OUT)  # Create a pin object for RA0
     while True:
         led.value = 1
         sleep(0.5)
