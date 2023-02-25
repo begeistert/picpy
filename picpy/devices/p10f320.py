@@ -1,4 +1,3 @@
-from . import Pin, start, config
 from .midrange import *
 
 # ============== Device Information ==============
