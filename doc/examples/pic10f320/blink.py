@@ -1,3 +1,4 @@
+from time import sleep
 from picpy.devices.p10f320 import *
 
 
@@ -6,9 +7,14 @@ def interrupt():
     pass
 
 
-@start(start_at=0x00, interrupt_at=0x04)
+@start
 def main():
-    pass
+    led = Pin(PORTA, RA0, Pin.OUT)
+    while True:
+        led.value = 1
+        sleep(0.5)
+        led.off()
+        sleep(0.5)
 
 
 build(PicPy.HEX)

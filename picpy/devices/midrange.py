@@ -1,3 +1,4 @@
+from . import assembly
 from picpy.picpy import build, PicPy
 
 
@@ -9,7 +10,7 @@ def interrupt(source=0):
         return wrapper
 
 
-def start(start_at=0, interrupt_at=0):
+def start(start_at=0, interrupt_at=0x04):
     def decorator(function):
         def wrapper():
             pass
