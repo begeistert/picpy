@@ -8,6 +8,7 @@ def interrupt():
 
 
 @start
+@config(FOSC_INTOSC & WDTE_OFF)
 def main():
     TRISA[RA0] = 0  # Set RA0 to output
     led = Pin(PORTA, RA0, Pin.OUT)  # Create a pin object for RA0

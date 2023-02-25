@@ -9,10 +9,3 @@ def interrupt(source=0):
 
         return wrapper
 
-
-def start(start_at=0, interrupt_at=0x04):
-    def decorator(function):
-        def wrapper():
-            pass
-
-        return wrapper

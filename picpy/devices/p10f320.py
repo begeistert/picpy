@@ -1,4 +1,4 @@
-from . import Pin
+from . import Pin, start, config
 from .midrange import *
 
 # ============== Device Information ==============
@@ -551,34 +551,34 @@ _CONFIG = 0x2007
 
 # ============== CONFIG Options ==============
 
-_FOSC_INTOSC = 0x3ffe
-_FOSC_EC = 0x3fff
-_BOREN_OFF = 0x3ff9
-_BOREN_SBODEN = 0x3ffb
-_BOREN_NSLEEP = 0x3ffd
-_BOREN_ON = 0x3fff
-_WDTE_OFF = 0x3fe7
-_WDTE_SWDTEN = 0x3fef
-_WDTE_NSLEEP = 0x3ff7
-_WDTE_ON = 0x3fff
-_PWRTE_ON = 0x3fdf
-_PWRTE_OFF = 0x3fff
-_MCLRE_OFF = 0x3fbf
-_MCLRE_ON = 0x3fff
-_CP_ON = 0x3f7f
-_CP_OFF = 0x3fff
-_LVP_OFF = 0x3eff
-_LVP_ON = 0x3fff
-_LPBOR_OFF = 0x3dff
-_LPBOR_ON = 0x3fff
-_BORV_HI = 0x3bff
-_BORV_27 = 0x3bff
-_BORV_LO = 0x3fff
-_BORV_24 = 0x3fff
-_WRT_ALL = 0x27ff
-_WRT_HALF = 0x2fff
-_WRT_BOOT = 0x37ff
-_WRT_OFF = 0x3fff
+FOSC_INTOSC = 0x3ffe
+FOSC_EC = 0x3fff
+BOREN_OFF = 0x3ff9
+BOREN_SBODEN = 0x3ffb
+BOREN_NSLEEP = 0x3ffd
+BOREN_ON = 0x3fff
+WDTE_OFF = 0x3fe7
+WDTE_SWDTEN = 0x3fef
+WDTE_NSLEEP = 0x3ff7
+WDTE_ON = 0x3fff
+PWRTE_ON = 0x3fdf
+PWRTE_OFF = 0x3fff
+MCLRE_OFF = 0x3fbf
+MCLRE_ON = 0x3fff
+CP_ON = 0x3f7f
+CP_OFF = 0x3fff
+LVP_OFF = 0x3eff
+LVP_ON = 0x3fff
+LPBOR_OFF = 0x3dff
+LPBOR_ON = 0x3fff
+BORV_HI = 0x3bff
+BORV_27 = 0x3bff
+BORV_LO = 0x3fff
+BORV_24 = 0x3fff
+WRT_ALL = 0x27ff
+WRT_HALF = 0x2fff
+WRT_BOOT = 0x37ff
+WRT_OFF = 0x3fff
 
 # ============== DEVID Equates ==============
 
