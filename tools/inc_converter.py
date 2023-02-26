@@ -34,5 +34,5 @@ with open("p10f320.py", "w") as fp:
     for name, value in registers.items():
         if comments.get(count) is not None:
             fp.write(f"\n# ============== {comments[count]} ==============\n\n")
-        fp.write(f"{name} = 0x{value:04x}\n")
+        fp.write(f"{name} = const(0x{value:04x})\n")
         count += 1

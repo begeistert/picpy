@@ -54,6 +54,15 @@ def assembly(code: str):
     pass
 
 
+def const(value):
+    """Create a constant.
+
+    Args:
+        value: The value of the constant.
+    """
+    pass
+
+
 def start(start_at=0, interrupt_at=0x04):
     def decorator(function):
         def wrapper():
