@@ -1,20 +1,33 @@
-from.base import Mnemonic
+from.base import InstructionSet, Mnemonic
 
 
-class Midrange:
-    def addwf(self, f, d):
+class MidrangeSet(InstructionSet):
+    def emit(self, mnemonic):
+        mnem = getattr(self, mnemonic.mnemonic.lower())
+        if not mnemonic:
+            raise ValueError(f"Invalid mnemonic: {mnemonic}")
+        return mnem(mnemonic)
+
+    def addwf(self, mnemonic):
+        f = mnemonic.register
+        d = mnemonic.destination
         return 0b00_0111_0000_0000 | ((d & 1) << 7) | (f & 0x7f)
 
-    def andwf(self, f, d):
+    def andwf(self, mnemonic):
+        f = mnemonic.register
+        d = mnemonic.destination
         return 0b00_0101_0000_0000 | ((d & 1) << 7) | (f & 0x7f)
 
-    def clrf(self, f):
+    def clrf(self, mnemonic):
+        f = mnemonic.register
         return 0b00_0001_1000_0000 | (f & 0x7f)
 
-    def clrw(self):
+    def clrw(self, _):
         return 0b00_0001_0000_0000
 
-    def comf(self, f, d):
+    def comf(self, mnemonic):
+        f = mnemonic.register
+        d = mnemonic.destination
         return 0b00_1001_0000_0000 | ((d & 1) << 7) | (f & 0x7f)
 
     def decf(self, f, d):

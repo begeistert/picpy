@@ -20,7 +20,7 @@ class Interpreter:
     def _expand(self, code):
         tree = []
         for tree_node in code:
-            resolved = tree_node.resolve(self._linker)
+            resolved = tree_node.resolve()
             if resolved is not None:
                 has_label = tree_node.label is not None
                 match resolved:
@@ -63,8 +63,11 @@ class Interpreter:
             if processed is not None:
                 match processed:
                     case list():
+                        for element in processed:
+                            element.context = self._linker
                         tree.extend(processed)
                     case _:
+                        processed.context = self._linker
                         tree.append(processed)
 
         return tree

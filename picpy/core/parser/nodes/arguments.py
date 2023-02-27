@@ -13,7 +13,7 @@ class Arguments(PyNode):
         self.kwonlyargs = kwonlyargs
         self.posonlyargs = posonlyargs
 
-    def resolve(self, context):
+    def resolve(self):
         pass
 
     def __repr__(self):

@@ -62,6 +62,21 @@ def p_statement(p):
         p[0] = p[1] + p[2] + p[3] + p[4] + p[5]
 
 
+def p_labeled_statement(p):
+    """statement : ID instruction
+                 | ID TWO_DOTS instruction
+                 | ID newlines instruction
+                 | ID TWO_DOTS newlines instruction"""
+    if len(p) == 3:
+        p[0] = p[2].label = p[1]
+    elif len(p) == 4:
+        p[3].label = p[1]
+        p[0] = p[3]
+    elif len(p) == 5:
+        p[4].label = p[1]
+        p[0] = p[4]
+
+
 # Instructions
 def p_byte_instruction(p):
     """instruction : ADDWF source COMMA source
@@ -136,7 +151,7 @@ def p_literal_instruction(p):
                    | OPTION
                    | XORLW source"""
     if len(p) == 3:
-        p[0] = MnemonicNode(p[1], register=p[2])
+        p[0] = MnemonicNode(p[1], literal=p[2])
     else:
         p[0] = MnemonicNode(p[1])
 

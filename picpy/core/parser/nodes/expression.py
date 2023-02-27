@@ -6,14 +6,30 @@ class Expr(PyNode):
         super().__init__(line, column)
         self.expression = expression
 
-    def resolve(self, context):
+    @property
+    def label(self):
+        match self.expression:
+            case list():
+                return self.expression[0].label
+            case _:
+                return self.expression.label
+
+    @label.setter
+    def label(self, value):
+        match self.expression:
+            case list():
+                self.expression[0].label = value
+            case _:
+                self.expression.label = value
+
+    def resolve(self):
         pass
 
     def __repr__(self):
         return f'Expression({self.expression})'
 
     def __eq__(self, other):
-        return isinstance(other, Expression) and self.expression == other.expression
+        return isinstance(other, Expr) and self.expression == other.expression
 
     def __hash__(self):
         return hash(self.expression)

@@ -8,9 +8,10 @@ class DeclareObject(PyNode):
         self.reference = reference
         self.args = args
 
-    def resolve(self, context):
+    def resolve(self):
+        context = self._context
         if context.natives.get(self.name) is not None:
-            return context.natives.get(self.name).resolve(context.environment)
+            return context.natives.get(self.name).resolve()
 
     def __repr__(self):
         return f'DeclareObject({self.name}, {self.reference})'

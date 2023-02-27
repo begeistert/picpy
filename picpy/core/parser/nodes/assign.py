@@ -30,13 +30,14 @@ class AssignToAttribute(PyNode):
         self.attribute = attribute
         self.value = value
 
-    def resolve(self, context):
+    def resolve(self):
+        context = self._context
         natives = context.natives
         env = context.environment
         if natives.get(self.target) is not None:
             attr = getattr(natives.get(self.target), self.attribute)
             if attr is not None:
-                return attr(env, self.value)
+                return attr(self.value)
 
     def __repr__(self):
         return f'AssignToAttribute({self.target}, {self.value})'

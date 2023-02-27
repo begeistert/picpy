@@ -9,3 +9,6 @@ class MnemonicNode(AssemblyNode):
         self.bit = bit
         self.destination = destination
         self.literal = literal
+
+    def __repr__(self):
+        return f"MnemonicNode({self.mnemonic}, {self.register}, {self.bit}, {self.destination}, {self.literal})"

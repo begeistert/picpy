@@ -4,7 +4,7 @@
 import sys
 import picpy.core.assembler.picasmparse as picasmparse
 import picpy.core.assembler.picasminterp as picasminterp
-from ..arch.midrange import RawAssembly
+from ..arch.base import RawAssembly
 
 # If a filename has been specified, we try to run it.
 # If a runtime error occurs, we bail out and enter
@@ -75,7 +75,19 @@ class Assembler:
     def assemble(self, source, linker):
         # Look for assembly code in the source
         # and assemble it
+
+        tree = []
         for node in source:
             match node:
                 case RawAssembly():
-                    asm = picasmparse.parse(node.constant.strip().upper())
+                    asm = picasmparse.parse(node.code.strip().upper())
+                    if not asm:
+                        raise RuntimeError(f"Invalid assembly code: {node.code}")
+                    else:
+                        tree.extend(asm.body)
+                case _:
+                    tree.append(node)
+
+        # Assemble the tree
+        interpreter = picasminterp.AssemblyInterpreter(tree, linker)
+        interpreter.interpret()

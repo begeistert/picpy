@@ -7,7 +7,7 @@ class While(PyNode):
         self.condition = condition
         self.body = body
 
-    def resolve(self, context):
+    def resolve(self):
         pass
 
     def __repr__(self):

@@ -1,4 +1,5 @@
 from .parser.nodes import DeclareObject
+from .assembler.nodes.expression import Value
 
 
 def link(references):
@@ -27,7 +28,7 @@ class Linker:
     def link(self, declarations):
         for declaration in declarations:
             if isinstance(declaration, DeclareObject) and declaration.reference is 'const':
-                self._environment[declaration.name] = declaration.args[0].value
+                self._environment[declaration.name] = Value(declaration.args[0].value)
             else:
                 match declaration.reference:
                     case 'Pin':
@@ -39,3 +40,6 @@ class Linker:
                     case _:
                         # Custom object
                         pass
+
+    def __getitem__(self, item):
+        return self._environment[item]

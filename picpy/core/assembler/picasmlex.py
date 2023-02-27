@@ -26,7 +26,7 @@ tokens = preprocessor + mnemonics + keywords + (
     'LOW', 'LOR', 'LAND', 'NEWLINE', 'NOT', 'EQU',
     'GT', 'LT', 'BITWISE_OR', 'BITWISE_AND',
     'BITWISE_XOR', 'BITWISE_NOT', 'LPAREN', 'RPAREN',
-    'DOLLAR', 'STRING'
+    'DOLLAR', 'STRING', 'TWO_DOTS'
 )
 
 t_ignore = ' \t'
@@ -62,6 +62,7 @@ t_COMMA = r','
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
 t_DOLLAR = r'\$'
+t_TWO_DOTS = r':'
 
 # Expression tokens
 t_BITWISE_OR = r'\|'

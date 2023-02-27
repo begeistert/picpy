@@ -4,6 +4,15 @@ class PyNode:
         self.line = line
         self.column = column
         self._label = None
+        self._context = None
+
+    @property
+    def context(self):
+        return self._context
+
+    @context.setter
+    def context(self, context):
+        self._context = context
 
     @property
     def label(self):
@@ -13,5 +22,5 @@ class PyNode:
     def label(self, label):
         self._label = label
 
-    def resolve(self, context):
+    def resolve(self):
         raise NotImplementedError()

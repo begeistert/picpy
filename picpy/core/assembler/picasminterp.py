@@ -4,6 +4,26 @@
 import sys
 import math
 import random
+from ..arch import *
+
+
+class AssemblyInterpreter:
+    def __init__(self, prog, linker):
+        self.instruction_set = None
+        self.prog = prog
+        self.stat = list(prog)
+        self.pc = 0
+        self.error = 0
+        self.loopend = {}
+        if linker['ARCH'] is not None:
+            match linker['ARCH']:
+                case 14:
+                    self.instruction_set = MidrangeSet()
+
+    def interpret(self):
+        binary = []
+        for mnem in self.prog:
+            binary.append(self.instruction_set.emit(mnem))
 
 
 class BasicInterpreter:

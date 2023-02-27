@@ -1,4 +1,4 @@
 class Evaluator:
-    def resolve(self, context):
+    def resolve(self):
         raise NotImplementedError()
 

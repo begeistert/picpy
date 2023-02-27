@@ -33,10 +33,28 @@ class Value(AssemblyUnaryExpr):
             self.type = 4
 
     def evaluate(self, env):
-        return self.value
+        match self.type:
+            case 0:
+                return self.value
+            case 1:
+                return env.get(self.value).value
+            case 2:
+                return self.value
+            case 3:
+                return ord(self.value)
+            case 4:
+                return env["__CURRENT_MEMORY_ADDRESS__"]
+
+    def __eq__(self, other):
+        return self.value == other
+
+    def __and__(self, other):
+        if self.type != 0:
+            raise TypeError("Cannot perform bitwise operations on non-integer values, please evaluate before.")
+        return self.value & other
 
     def __repr__(self):
-        return "Value(%s)" % self.value
+        return self.value
 
 
 class LowExprNode(AssemblyUnaryExpr):

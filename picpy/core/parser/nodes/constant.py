@@ -1,4 +1,5 @@
 from .node import PyNode
+from ...assembler.nodes.expression import Value
 
 
 class Constant(PyNode):
@@ -6,8 +7,8 @@ class Constant(PyNode):
         super().__init__(line, column)
         self.value = value
 
-    def resolve(self, context):
-        pass
+    def resolve(self):
+        return Value(self.value)
 
     def __repr__(self):
         return f'Constant({self.value})'

@@ -1,4 +1,5 @@
 from .node import PyNode
+from ...assembler.nodes.expression import Value
 
 
 class Attribute(PyNode):
@@ -28,8 +29,8 @@ class Name(PyNode):
         super().__init__(line, column)
         self.name = name
 
-    def resolve(self, context):
-        pass
+    def resolve(self):
+        return Value(self.name)
 
     def __repr__(self):
         return f'Name({self.name})'

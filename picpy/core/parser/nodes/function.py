@@ -32,7 +32,7 @@ class Function(PyNode):
                     if dec.target == decorator:
                         return dec
 
-    def resolve(self, context):
+    def resolve(self):
         pass
 
     def __repr__(self):
