@@ -12,25 +12,23 @@ mnemonics = (
 )
 
 keywords = (
-    'EQU', 'CBLOCK', 'ENDCB', 'CUSTOM', 'ENDCUSTOM', 'MESSAGE', 'ORG', 'LIST', 'MIFDEF', 'MENDIF',
+    'CBLOCK', 'ENDCB', 'CUSTOM', 'ENDCUSTOM', 'MESSAGE', 'ORG', 'LIST', 'MIFDEF', 'MENDIF',
     'FILL', 'END', 'DATA', 'PAGESEL', 'BANKSEL', 'LOCAL', 'MIFNDER', 'MAXRAM', 'BADRAM', 'NOLIST', 'MINCLUDE',
     'NAME', 'RADIX',
 )
 
 tokens = preprocessor + mnemonics + keywords + (
     'EOF', 'ERROR', 'NUMBER', 'ID', 'PLUS',
-    'MINUS', 'DIVIDE', 'POWER',
+    'MINUS', 'DIVIDE', 'POWER', 'COMMA', 'MODULUS',
     'CHARACTER', 'EQUALS', 'NEQ', 'LEQ', 'GEQ',
-    'LSH', 'RSH', 'UPPER', 'HIGH',
-    'LOW', 'LOR', 'LAND', 'NEWLINE'
+    'LSHIFT', 'RSHIFT', 'UPPER', 'HIGH', 'MULTIPLICATIVE',
+    'LOW', 'LOR', 'LAND', 'NEWLINE', 'NOT', 'EQU',
+    'GT', 'LT', 'BITWISE_OR', 'BITWISE_AND',
+    'BITWISE_XOR', 'BITWISE_NOT', 'LPAREN', 'RPAREN',
+    'DOLLAR', 'STRING'
 )
 
 t_ignore = ' \t'
-
-
-def t_REM(t):
-    r'REM .*'
-    return t
 
 
 def t_ID(t):
@@ -45,6 +43,35 @@ t_PLUS = r'\+'
 t_MINUS = r'-'
 t_POWER = r'\^'
 t_DIVIDE = r'/'
+t_MULTIPLICATIVE = r'\*'
+t_MODULUS = r'%'
+
+t_RSHIFT = r'>>'
+t_LSHIFT = r'<<'
+
+t_LEQ = r'<='
+t_GEQ = r'>='
+t_NEQ = r'!='
+t_EQU = r'=='
+
+t_GT = r'>'
+t_LT = r'<'
+
+t_COMMA = r','
+t_LPAREN = r'\('
+t_RPAREN = r'\)'
+t_DOLLAR = r'\$'
+
+# Expression tokens
+t_BITWISE_OR = r'\|'
+t_BITWISE_AND = r'&'
+t_BITWISE_XOR = r'\^'
+t_BITWISE_NOT = r'~'
+
+# Logical tokens
+t_NOT = r'!'
+t_LOR = r'\|\|'
+t_LAND = r'&&'
 
 # t_LPAREN = r'\('
 # t_RPAREN = r'\)'
@@ -55,9 +82,11 @@ t_DIVIDE = r'/'
 # t_NE = r'<>'
 # t_COMMA = r'\,'
 # t_SEMI = r';'
-# t_INTEGER = r'\d+'
+t_NUMBER = r'\d+'
 # t_FLOAT = r'((\d*\.\d+)(E[\+-]?\d+)?|([1-9]\d*E[\+-]?\d+))'
-# t_STRING = r'\".*?\"'
+t_STRING = r'\".*?\"'
+t_CHARACTER = r'\'[^\']\''
+t_ignore_COMMENT = r';.*'
 
 
 def t_NEWLINE(t):

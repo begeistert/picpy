@@ -13,6 +13,8 @@ def main():
     #  TRISA[RA0] = 0  # Set RA0 to output
     assembly("""
     clrf ANSELA
+    addwf TRISA, f
+    addwf PORTB
     """)
     led = Pin(PORTA, RA0, Pin.OUT)  # Create a pin object for RA0
     while True:

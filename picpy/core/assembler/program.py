@@ -9,7 +9,13 @@ class AssemblyProgram:
         return self._statements
 
     def __add__(self, statement):
+        if statement not in self._statements:
+            self._statements.append(statement)
+        return self
+
+    def __iadd__(self, statement):
         self._statements.append(statement)
+        return self
 
     def __str__(self):
         return '\n'.join([str(s) for s in self._statements])
