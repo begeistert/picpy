@@ -13,5 +13,5 @@ class PyNode:
     def label(self, label):
         self._label = label
 
-    def resolve(self):
+    def resolve(self, context):
         raise NotImplementedError()

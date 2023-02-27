@@ -30,11 +30,16 @@ class AssignToAttribute(PyNode):
         self.attribute = attribute
         self.value = value
 
-    def resolve(self):
-        pass
+    def resolve(self, context):
+        natives = context.natives
+        env = context.environment
+        if natives.get(self.target) is not None:
+            attr = getattr(natives.get(self.target), self.attribute)
+            if attr is not None:
+                return attr(env, self.value)
 
     def __repr__(self):
-        return f'AssignArray({self.target}, {self.value})'
+        return f'AssignToAttribute({self.target}, {self.value})'
 
     def __eq__(self, other):
         return isinstance(other, AssignToAttribute) and self.target == other.target and self.value == other.value

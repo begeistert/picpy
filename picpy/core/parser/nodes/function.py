@@ -1,4 +1,5 @@
 from .node import PyNode
+from . import Name, Call
 
 
 class Function(PyNode):
@@ -9,12 +10,29 @@ class Function(PyNode):
         self.args = args
         self.body = body
         self.decorator_list = decorator_list
+        self.decorator_list_names = []
+        for decorator in self.decorator_list:
+            match decorator:
+                case Name():
+                    self.decorator_list_names.append(decorator.name)
+                case Call():
+                    self.decorator_list_names.append(decorator.target)
         self.returns = returns
 
     def has_decorator(self, decorator):
-        return decorator in self.decorator_list
+        return decorator in self.decorator_list_names
 
-    def resolve(self):
+    def get_decorator(self, decorator):
+        for dec in self.decorator_list:
+            match dec:
+                case Name():
+                    if dec.name == decorator:
+                        return dec
+                case Call():
+                    if dec.target == decorator:
+                        return dec
+
+    def resolve(self, context):
         pass
 
     def __repr__(self):

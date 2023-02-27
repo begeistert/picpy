@@ -1,4 +1,5 @@
 from .node import PyNode
+from ...arch import midrange
 
 
 class Goto(PyNode):
@@ -6,8 +7,8 @@ class Goto(PyNode):
         super().__init__(0, 0)
         self.label = label
 
-    def resolve(self):
-        return f'goto {self.label};'
+    def resolve(self, context):
+        return midrange.Goto(self.label)
 
     def __str__(self):
         return f'Goto({self.label})'

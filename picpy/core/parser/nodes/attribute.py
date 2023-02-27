@@ -28,7 +28,7 @@ class Name(PyNode):
         super().__init__(line, column)
         self.name = name
 
-    def resolve(self):
+    def resolve(self, context):
         pass
 
     def __repr__(self):

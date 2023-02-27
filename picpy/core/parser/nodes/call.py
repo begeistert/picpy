@@ -1,4 +1,5 @@
 from .node import PyNode
+from picpy.core.arch import midrange
 
 
 class Call(PyNode):
@@ -7,8 +8,11 @@ class Call(PyNode):
         self.target = target
         self.arguments = arguments
 
-    def resolve(self):
-        pass
+    def resolve(self, context):
+        # TODO: Consider the arguments
+        if self.target == 'assembly':
+            return midrange.RawAssembly(self.arguments[0].value)
+        return midrange.Call(self.target)
 
     def __repr__(self):
         return f'Call({self.target}, {self.arguments})'
@@ -30,8 +34,23 @@ class CallObjectFunction(PyNode):
         self.function = function
         self.arguments = arguments
 
-    def resolve(self):
-        pass
+    def resolve(self, context):
+        native = context.natives
+        env = context.environment
+        if self.arguments is not None and len(self.arguments) > 0:
+            args = self.arguments.resolve(context)
+
+        if self.target == 'Pic':
+            match env['ARCH']:
+                case 14:
+                    match self.function:
+                        case 'sleep':
+                            return midrange.Sleep()
+
+        if native.get(self.target) is not None:
+            attr = getattr(native.get(self.target), self.function)
+            if attr is not None:
+                return attr(context.environment)
 
     def __repr__(self):
         return f'CallObjectFunction({self.target}, {self.function}, {self.arguments})'

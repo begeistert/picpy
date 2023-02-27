@@ -9,7 +9,7 @@ class Include(PyNode):
         self.name = name
         self.alias = alias
 
-    def resolve(self):
+    def resolve(self, context):
         pass
 
     def __repr__(self):

@@ -1,6 +1,7 @@
 from .midrange import *
 
 # ============== Device Information ==============
+ARCH = const(14)
 MAX_RAM = const(0x007F)
 BAD_RAM = const(0x002F)
 

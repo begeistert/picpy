@@ -151,3 +151,42 @@ class Movwf(Mnemonic):
 
     def emit(self):
         return 0b00_0000_1000_0000 | (self.register & 0x7f)
+
+
+class Call(Mnemonic):
+    def __init__(self, k=0, label=None):
+        super().__init__(constant=k)
+        self.label = label
+
+    def resolve(self, labels):
+        if self.label is not None:
+            self.constant = labels[self.label]
+
+    def emit(self):
+        return 0b10_0000_0000_0000 | (self.constant & 0x7ff)
+
+
+class Goto(Mnemonic):
+    def __init__(self, k=0, label=None):
+        super().__init__(constant=k)
+        self.label = label
+
+    def resolve(self, labels):
+        if self.label is not None:
+            self.constant = labels[self.label]
+
+    def emit(self):
+        return 0b10_1000_0000_0000 | (self.constant & 0x7ff)
+
+
+class Sleep(Mnemonic):
+    def emit(self):
+        return 0b00_0000_0110_0011
+
+
+class RawAssembly(Mnemonic):
+    def __init__(self, code):
+        super().__init__(constant=code)
+
+    def emit(self):
+        return self.constant

@@ -1,7 +1,6 @@
 from .parser import parse
-from .linker import link
 from .interpreter import Interpreter
-#from .assembler import
+from .assembler.picasm import Assembler
 
 
 class Compiler:
@@ -12,10 +11,11 @@ class Compiler:
     def compile(self, source):
         # self._assembler.assemble(self._parser.parse(source))
         interpreter = Interpreter()
+        assembler = Assembler()
 
         abstract_syntax_tree = parse(source)
-        plain_syntax_tree = interpreter.interpret(abstract_syntax_tree)
-        environment = link(plain_syntax_tree)
+        code, linker = interpreter.interpret(abstract_syntax_tree)
+        assembler.assemble(code, linker)
 
         return parse(source)
 

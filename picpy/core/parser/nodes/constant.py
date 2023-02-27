@@ -6,7 +6,7 @@ class Constant(PyNode):
         super().__init__(line, column)
         self.value = value
 
-    def resolve(self):
+    def resolve(self, context):
         pass
 
     def __repr__(self):

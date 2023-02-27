@@ -31,7 +31,7 @@ def parse(source):
             case ast.Call():
                 match tree_node.func:
                     case ast.Attribute():
-                        n = CallObjectFunction(tree_node.lineno, tree_node.col_offset, parse([tree_node.func.value]),
+                        n = CallObjectFunction(tree_node.lineno, tree_node.col_offset, tree_node.func.value.id,
                                                tree_node.func.attr, parse(tree_node.args))
                     case ast.Name():
                         n = Call(tree_node.lineno, tree_node.col_offset, tree_node.func.id, parse(tree_node.args))

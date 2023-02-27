@@ -1,7 +1,7 @@
 from .lex import *
 
 preprocessor = (
-    'INCLUDE', 'DEFINE', 'UNDEF', 'IFDEF', 'IFNDEF', 'ELSE', 'ENDIF', 'ERROR',
+    'INCLUDE', 'DEFINE', 'UNDEF', 'IFDEF', 'IFNDEF', 'ELSE', 'ENDIF',
 )
 
 mnemonics = (
@@ -12,15 +12,16 @@ mnemonics = (
 )
 
 keywords = (
-    'EQU', 'CBLOCK', 'ENDCB', 'CUSTOM', 'ENDCUSTOM', 'DATA', 'MESSAGE', 'ORG', 'LIST', 'MIFDEF', 'MENDIF',
-    'FILL', 'END', 'DATA', 'PAGESEL', 'BANKSEL', 'LOCAL', 'MIFNDER', 'MAXRAM', 'BADRAM', 'NOLIST', 'INCLUDE',
+    'EQU', 'CBLOCK', 'ENDCB', 'CUSTOM', 'ENDCUSTOM', 'MESSAGE', 'ORG', 'LIST', 'MIFDEF', 'MENDIF',
+    'FILL', 'END', 'DATA', 'PAGESEL', 'BANKSEL', 'LOCAL', 'MIFNDER', 'MAXRAM', 'BADRAM', 'NOLIST', 'MINCLUDE',
     'NAME', 'RADIX',
 )
 
 tokens = preprocessor + mnemonics + keywords + (
-    'EOF', 'ERROR', 'NUMBER', 'ID',
-    'CHARACTER', 'NEQ', 'LEQ', 'GEQ',
-    'LSH', 'LSH', 'RSH', 'UPPER', 'HIGH',
+    'EOF', 'ERROR', 'NUMBER', 'ID', 'PLUS',
+    'MINUS', 'DIVIDE', 'POWER',
+    'CHARACTER', 'EQUALS', 'NEQ', 'LEQ', 'GEQ',
+    'LSH', 'RSH', 'UPPER', 'HIGH',
     'LOW', 'LOR', 'LAND', 'NEWLINE'
 )
 
@@ -42,25 +43,24 @@ def t_ID(t):
 t_EQUALS = r'='
 t_PLUS = r'\+'
 t_MINUS = r'-'
-t_TIMES = r'\*'
 t_POWER = r'\^'
 t_DIVIDE = r'/'
-t_LPAREN = r'\('
-t_RPAREN = r'\)'
-t_LT = r'<'
-t_LE = r'<='
-t_GT = r'>'
-t_GE = r'>='
-t_NE = r'<>'
-t_COMMA = r'\,'
-t_SEMI = r';'
-t_INTEGER = r'\d+'
-t_FLOAT = r'((\d*\.\d+)(E[\+-]?\d+)?|([1-9]\d*E[\+-]?\d+))'
-t_STRING = r'\".*?\"'
+# t_LPAREN = r'\('
+# t_RPAREN = r'\)'
+# t_LT = r'<'
+# t_LE = r'<='
+# t_GT = r'>'
+# t_GE = r'>='
+# t_NE = r'<>'
+# t_COMMA = r'\,'
+# t_SEMI = r';'
+# t_INTEGER = r'\d+'
+# t_FLOAT = r'((\d*\.\d+)(E[\+-]?\d+)?|([1-9]\d*E[\+-]?\d+))'
+# t_STRING = r'\".*?\"'
 
 
 def t_NEWLINE(t):
-    r'\n'
+    r"""\n"""
     t.lexer.lineno += 1
     return t
 

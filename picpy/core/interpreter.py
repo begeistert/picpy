@@ -7,22 +7,41 @@ class Interpreter:
         self._environment = {}
         self._modules = {}
         self._linker = Linker()
+        self._configuration_words = []
         self._current_function = None
 
     def interpret(self, code):
         tree = self._process(code)
+        self._handle_objects(tree)
+        tree = self._expand(tree)
 
-        return tree, self._linker.environment
+        return tree, self._linker
+
+    def _expand(self, code):
+        tree = []
+        for tree_node in code:
+            resolved = tree_node.resolve(self._linker)
+            if resolved is not None:
+                has_label = tree_node.label is not None
+                match resolved:
+                    case list():
+                        if has_label:
+                            resolved[0].label = tree_node.label
+                        tree.extend(resolved)
+                    case _:
+                        if has_label:
+                            resolved.label = tree_node.label
+                        tree.append(resolved)
+
+        return tree
 
     def _handle_objects(self, code):
-        tree = []
         for tree_node in code:
             match tree_node:
                 case DeclareObject():
-                    tree.append(tree_node)
+                    self._linker.link([tree_node])
                 case _:
                     pass
-
 
     def _process(self, code):
         tree = []
@@ -64,6 +83,11 @@ class Interpreter:
         if function.has_decorator('assembly'):
             # Assembly code
             pass
+
+        if function.has_decorator('config'):
+            # Configuration word
+            config = function.get_decorator('config')
+            self._configuration_words.append(config)
 
         # TODO: Need to handle function arguments
         # TODO: Need to handle function return values

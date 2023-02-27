@@ -6,7 +6,7 @@ class Expr(PyNode):
         super().__init__(line, column)
         self.expression = expression
 
-    def resolve(self):
+    def resolve(self, context):
         pass
 
     def __repr__(self):

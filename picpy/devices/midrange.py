@@ -1,6 +1,9 @@
 from picpy.picpy import build, PicPy
 
 
+ARCH_MIDRANGE = 16
+
+
 # ==================== Helper Classes ====================
 class Pin:
     """A pin on the PIC.
