@@ -78,4 +78,4 @@ class Assembler:
         for node in source:
             match node:
                 case RawAssembly():
-                    asm = picasmparse.parse(node.constant)
+                    asm = picasmparse.parse(node.constant.strip().upper())

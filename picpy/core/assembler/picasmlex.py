@@ -34,8 +34,8 @@ def t_REM(t):
 
 
 def t_ID(t):
-    r'[A-Z][A-Z0-9]*'
-    if t.value in keywords:
+    r"""[A-Z][A-Z0-9]*"""
+    if t.value in keywords or t.value in mnemonics:
         t.type = t.value
     return t
 
@@ -45,6 +45,7 @@ t_PLUS = r'\+'
 t_MINUS = r'-'
 t_POWER = r'\^'
 t_DIVIDE = r'/'
+
 # t_LPAREN = r'\('
 # t_RPAREN = r'\)'
 # t_LT = r'<'
