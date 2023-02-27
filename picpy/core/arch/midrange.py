@@ -30,91 +30,131 @@ class MidrangeSet(InstructionSet):
         d = mnemonic.destination
         return 0b00_1001_0000_0000 | ((d & 1) << 7) | (f & 0x7f)
 
-    def decf(self, f, d):
+    def decf(self, mnemonic):
+        f = mnemonic.register
+        d = mnemonic.destination
         return 0b00_0011_0000_0000 | ((d & 1) << 7) | (f & 0x7f)
 
-    def decfsz(self, f, d):
+    def decfsz(self, mnemonic):
+        f = mnemonic.register
+        d = mnemonic.destination
         return 0b00_1011_0000_0000 | ((d & 1) << 7) | (f & 0x7f)
 
-    def incf(self, f, d):
+    def incf(self, mnemonic):
+        f = mnemonic.register
+        d = mnemonic.destination
         return 0b00_1010_0000_0000 | ((d & 1) << 7) | (f & 0x7f)
 
-    def incfsz(self, f, d):
+    def incfsz(self, mnemonic):
+        f = mnemonic.register
+        d = mnemonic.destination
         return 0b00_1111_0000_0000 | ((d & 1) << 7) | (f & 0x7f)
 
-    def iorwf(self, f, d):
+    def iorwf(self, mnemonic):
+        f = mnemonic.register
+        d = mnemonic.destination
         return 0b00_0100_0000_0000 | ((d & 1) << 7) | (f & 0x7f)
 
-    def movf(self, f, d):
+    def movf(self, mnemonic):
+        f = mnemonic.register
+        d = mnemonic.destination
         return 0b00_1000_0000_0000 | ((d & 1) << 7) | (f & 0x7f)
 
-    def movwf(self, f):
+    def movwf(self, mnemonic):
+        f = mnemonic.register
         return 0b00_0000_1000_0000 | (f & 0x7f)
 
-    def nop(self):
+    def nop(self, _):
         return 0b00_0000_0000_0000
 
-    def rlf(self, f, d):
+    def rlf(self, mnemonic):
+        f = mnemonic.register
+        d = mnemonic.destination
         return 0b00_1101_0000_0000 | ((d & 1) << 7) | (f & 0x7f)
 
-    def rrf(self, f, d):
+    def rrf(self, mnemonic):
+        f = mnemonic.register
+        d = mnemonic.destination
         return 0b00_1100_0000_0000 | ((d & 1) << 7) | (f & 0x7f)
 
-    def subwf(self, f, d):
+    def subwf(self, mnemonic):
+        f = mnemonic.register
+        d = mnemonic.destination
         return 0b00_0010_0000_0000 | ((d & 1) << 7) | (f & 0x7f)
 
-    def swapf(self, f, d):
+    def swapf(self, mnemonic):
+        f = mnemonic.register
+        d = mnemonic.destination
         return 0b00_1110_0000_0000 | ((d & 1) << 7) | (f & 0x7f)
 
-    def xorwf(self, f, d):
+    def xorwf(self, mnemonic):
+        f = mnemonic.register
+        d = mnemonic.destination
         return 0b00_0110_0000_0000 | ((d & 1) << 7) | (f & 0x7f)
 
-    def bcf(self, f, b):
+    def bcf(self, mnemonic):
+        f = mnemonic.register
+        b = mnemonic.bit
         return 0b01_0000_0000_0000 | ((b & 7) << 7) | (f & 0x7f)
 
-    def bsf(self, f, b):
+    def bsf(self, mnemonic):
+        f = mnemonic.register
+        b = mnemonic.bit
         return 0b01_0100_0000_0000 | ((b & 7) << 7) | (f & 0x7f)
 
-    def btfsc(self, f, b):
+    def btfsc(self, mnemonic):
+        f = mnemonic.register
+        b = mnemonic.bit
         return 0b01_1000_0000_0000 | ((b & 7) << 7) | (f & 0x7f)
 
-    def btfss(self, f, b):
+    def btfss(self, mnemonic):
+        f = mnemonic.register
+        b = mnemonic.bit
         return 0b01_1100_0000_0000 | ((b & 7) << 7) | (f & 0x7f)
 
-    def addlw(self, k):
+    def addlw(self, mnemonic):
+        k = mnemonic.constant
         return 0b11_1110_0000_0000 | (k & 0xff)
 
-    def andlw(self, k):
+    def andlw(self, mnemonic):
+        k = mnemonic.constant
         return 0b11_1001_0000_0000 | (k & 0xff)
 
-    def call(self, k):
+    def call(self, mnemonic):
+        k = mnemonic.constant
         return 0b10_0000_0000_0000 | (k & 0x7ff)
 
-    def clrwdt(self):
+    def clrwdt(self, _):
         return 0b00_0000_0110_0100
 
-    def goto(self, k):
+    def goto(self, mnemonic):
+        k = mnemonic.constant
         return 0b10_1000_0000_0000 | (k & 0x7ff)
 
-    def iorlw(self, k):
+    def iorlw(self, mnemonic):
+        k = mnemonic.constant
         return 0b11_1000_0000_0000 | (k & 0xff)
 
-    def movlw(self, k):
+    def movlw(self, mnemonic):
+        k = mnemonic.constant
         return 0b11_0000_0000_0000 | (k & 0xff)
 
-    def retfie(self):
+    def retfie(self, _):
         return 0b00_0000_0000_1001
 
-    def retlw(self, k):
+    def retlw(self, mnemonic):
+        k = mnemonic.constant
         return 0b11_0100_0000_0000 | (k & 0xff)
 
-    def sleep(self):
+    def sleep(self, _):
         return 0b00_0000_0110_0011
 
-    def sublw(self, k):
+    def sublw(self, mnemonic):
+        k = mnemonic.constant
         return 0b11_1100_0000_0000 | (k & 0xff)
 
-    def xorlw(self, k):
+    def xorlw(self, mnemonic):
+        k = mnemonic.constant
         return 0b11_1010_0000_0000 | (k & 0xff)
 
 

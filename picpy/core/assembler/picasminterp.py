@@ -15,6 +15,7 @@ class AssemblyInterpreter:
         self.pc = 0
         self.error = 0
         self.loopend = {}
+        self.linker = linker
         if linker['ARCH'] is not None:
             match linker['ARCH']:
                 case 14:
@@ -23,6 +24,7 @@ class AssemblyInterpreter:
     def interpret(self):
         binary = []
         for mnem in self.prog:
+            mnem.resolve(self.linker)
             binary.append(self.instruction_set.emit(mnem))
 
 
