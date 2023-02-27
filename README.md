@@ -10,3 +10,7 @@
   <p align="center">
     PIC Python Compiler
   </p>
+  
+  <p align="center">
+    <a href="https://ko-fi.com/I2I3EYOPF"><img src="https://ko-fi.com/img/githubbutton_sm.svg"></a>
+  </p>
