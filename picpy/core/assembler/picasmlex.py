@@ -9,6 +9,7 @@ mnemonics = (
     'IORWF', 'MOVF', 'MOVWF', 'RLF', 'RRF', 'SUBWF', 'SWAPF', 'XORWF', 'BCF', 'BSF',
     'BTFSC', 'BTFSS', 'BC', 'BNC', 'BZ', 'BNZ', 'BRA', 'CALL', 'CLRWDT', 'GOTO',
     'RETFIE', 'RETLW', 'RETURN', 'SLEEP', 'SUBLW', 'XORLW', 'ADDLW', 'ANDLW',
+    'NOP', 'IORLW', 'MOVLW', 'TRIS', 'OPTION'
 )
 
 keywords = (

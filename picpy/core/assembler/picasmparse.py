@@ -13,10 +13,6 @@ tokens = picasmlex.tokens
 )"""
 
 
-# A BASIC program is a series of statements.  We represent the program as a
-# dictionary of tuples indexed by line number.
-
-
 def p_program(p):
     """program : program newlines statement
                | statement"""
@@ -66,80 +62,83 @@ def p_statement(p):
         p[0] = p[1] + p[2] + p[3] + p[4] + p[5]
 
 
-"""instruction
-    : OP_ADDWF source ',' destination  
-    | OP_ADDWF source
-    | OP_ANDWF source ',' destination  
-    | OP_ANDWF source
-    | OP_CLRF source  
-    | OP_CLRW                 
-    | OP_COMF source ',' destination
-    | OP_COMF source
-    | OP_DECF source ',' destination
-    | OP_DECF source
-    | OP_DECFSZ source ',' destination
-    | OP_DECFSZ source
-    | OP_INCF source ',' destination
-    | OP_INCF source
-    | OP_INCFSZ source ',' destination
-    | OP_INCFSZ source
-    | OP_IORWF source ',' destination
-    | OP_IORWF source
-    | OP_MOVF source ',' destination
-    | OP_MOVF source
-    | OP_MOVWF destination
-    | OP_NOP             
-    | OP_RLF source ',' destination
-    | OP_RLF source
-    | OP_RRF source ',' destinatio
-    | OP_RRF source
-    | OP_SUBWF source ',' destination
-    | OP_SUBWF source
-    | OP_SWAPF source ',' destination
-    | OP_SWAPF source
-    | OP_XORWF source ',' destination
-    | OP_XORWF source
-    | OP_BCF source 
-    | OP_BCF source ',' destination
-    | OP_BSF source
-    | OP_BSF source ',' destination
-    | OP_BTFSC source
-    | OP_BTFSC source ',' destination
-    | OP_BTFSS source
-    | OP_BTFSS source ',' destination
-    | OP_ADDLW source
-    | OP_ANDLW source
-    | OP_CALL source
-    | OP_CLRWDT
-    | OP_GOTO source
-    | OP_IORLW source
-    | OP_MOVLW source
-    | OP_RETFIE
-    | OP_RETLW source
-    | OP_RETURN
-    | OP_SLEEP 
-    | OP_SUBLW source
-    | OP_TRIS source
-    | OP_OPTION
-    | OP_XORLW source  
-   ;"""
-
-"""instruction
-    : OP_ADDWF source ',' destination  """
-
-
-def p_addwf_instruction(p):
+# Instructions
+def p_byte_instruction(p):
     """instruction : ADDWF source COMMA source
-                   | ADDWF source"""
+                   | ADDWF source
+                   | ANDWF source COMMA source
+                   | ANDWF source
+                   | CLRF source
+                   | CLRW
+                   | COMF source COMMA source
+                   | COMF source
+                   | DECF source COMMA source
+                   | DECF source
+                   | DECFSZ source COMMA source
+                   | DECFSZ source
+                   | INCF source COMMA source
+                   | INCF source
+                   | INCFSZ source COMMA source
+                   | INCFSZ source
+                   | IORWF source COMMA source
+                   | IORWF source
+                   | MOVF source COMMA source
+                   | MOVF source
+                   | MOVWF source
+                   | NOP
+                   | RLF source COMMA source
+                   | RLF source
+                   | RRF source COMMA source
+                   | RRF source
+                   | SUBWF source COMMA source
+                   | SUBWF source
+                   | SWAPF source COMMA source
+                   | SWAPF source
+                   | XORWF source COMMA source
+                   | XORWF source"""
     if len(p) == 5:
         p[0] = MnemonicNode(p[1], register=p[2], destination=p[4])
+    elif len(p) == 3:
+        p[0] = MnemonicNode(p[1], register=p[2])
     else:
+        p[0] = MnemonicNode(p[1])
+
+
+def p_bit_instruction(p):
+    """instruction : BCF source COMMA source
+                   | BCF source
+                   | BSF source COMMA source
+                   | BSF source
+                   | BTFSC source COMMA source
+                   | BTFSC source
+                   | BTFSS source COMMA source
+                   | BTFSS source"""
+    if len(p) == 5:
+        p[0] = MnemonicNode(p[1], register=p[2], bit=p[4])
+    elif len(p) == 3:
         p[0] = MnemonicNode(p[1], register=p[2])
 
 
-def p_clrf_instruction(p):
-    """instruction : CLRF source"""
-    p[0] = MnemonicNode(p[1], register=p[2])
+def p_literal_instruction(p):
+    """instruction : ADDLW source
+                   | ANDLW source
+                   | CALL source
+                   | CLRWDT
+                   | GOTO source
+                   | IORLW source
+                   | MOVLW source
+                   | RETFIE
+                   | RETLW source
+                   | RETURN
+                   | SLEEP
+                   | SUBLW source
+                   | TRIS source
+                   | OPTION
+                   | XORLW source"""
+    if len(p) == 3:
+        p[0] = MnemonicNode(p[1], register=p[2])
+    else:
+        p[0] = MnemonicNode(p[1])
 
 
 # Data types
