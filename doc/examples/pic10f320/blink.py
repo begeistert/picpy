@@ -8,7 +8,10 @@ def interrupt():
 
 
 @start
-@config(0x3F3A)
+@mclr(False)
+@watchdog(False)
+@code_protection(False)
+@frequency(4_000_000, source='internal')
 def main():
     #  TRISA[RA0] = 0  # Set RA0 to output
     assembly("""

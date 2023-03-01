@@ -95,3 +95,94 @@ def interrupt(source=0):
 
     return decorator
 
+
+def frequency(freq, source='internal'):
+    def decorator(function):
+        def wrapper():
+            pass
+
+        return wrapper
+
+    return decorator
+
+
+# Configuration decorators
+def watchdog(value):
+    def decorator(function):
+        def wrapper():
+            pass
+
+        return wrapper
+
+    return decorator
+
+
+def mclr(value):
+    def decorator(function):
+        def wrapper():
+            pass
+
+        return wrapper
+
+    return decorator
+
+
+def brownout(value):
+    def decorator(function):
+        def wrapper():
+            pass
+
+        return wrapper
+
+    return decorator
+
+
+def low_voltage(value):
+    def decorator(function):
+        def wrapper():
+            pass
+
+        return wrapper
+
+    return decorator
+
+
+def power_up(value):
+    def decorator(function):
+        def wrapper():
+            pass
+
+        return wrapper
+
+    return decorator
+
+
+def debug(value):
+    def decorator(function):
+        def wrapper():
+            pass
+
+        return wrapper
+
+    return decorator
+
+
+def lvp(value):
+    def decorator(function):
+        def wrapper():
+            pass
+
+        return wrapper
+
+    return decorator
+
+
+def code_protection(value):
+    def decorator(function):
+        def wrapper():
+            pass
+
+        return wrapper
+
+    return decorator
+
