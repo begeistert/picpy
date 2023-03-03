@@ -29,4 +29,8 @@ class P10F320(MidrangeDebugger):
         self.EECON2 = lambda value=None: self._memory[0x18D]
 
 
+device = P10F320([], {})
+
+
+INDF = device.INDF
 
